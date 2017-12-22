@@ -1,0 +1,21 @@
+Word: Good
+Synonyms: nice, well, ethical, wholesome, moral
+Antonyms: bad, unwell, evil, rotten
+Word: Football
+Synonyms: soccer, ball game
+Antonyms: n/a
+Word: Juice
+Synonyms: drink, boost, enliven
+Antonyms: deaden, dull
+Word: Chairing
+Synonyms: regulating, controlling, ordering
+Antonyms: neglecting, ignoring
+Word: Piano
+Synonyms: keyboard, Joanna
+Antonyms: n/a
+Word: Raining
+Synonyms: precipitation, pouring, bucketing
+Antonyms: Dry weather
+Word: Rocket
+Synonyms: zoom, accelerate
+Antonyms: deflate, decelerate
