@@ -48,7 +48,7 @@ public class CirclesGUI implements MouseListener{
 			super.paintComponent(g);
 			Graphics2D g2=(Graphics2D)g;
 			g2.setColor(color);
-			g2.fillRect(X,Y,diameter,diameter);
+			g2.fillOval(X - diameter/2, Y - diameter/2, diameter, diameter);
 		}
 	}
 }
