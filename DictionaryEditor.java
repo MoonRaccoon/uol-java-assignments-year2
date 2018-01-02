@@ -2,6 +2,11 @@ import java.util.List;
 
 public class DictionaryEditor extends Dictionary {
 
+
+    public DictionaryEditor(List<DictionaryWord> words) {
+        super(words);
+    }
+
     public void add(DictionaryWord word) {
 	    words.add(word);
 	}
