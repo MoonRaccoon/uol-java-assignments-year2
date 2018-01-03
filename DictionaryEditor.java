@@ -1,3 +1,8 @@
+/*
+ * Name: Shamoun Syed
+ * Student Number: 140313701
+*/
+
 import java.util.List;
 
 public class DictionaryEditor extends Dictionary {

@@ -19,3 +19,9 @@ Antonyms: Dry weather
 Word: Rocket
 Synonyms: zoom, accelerate
 Antonyms: deflate, decelerate
+Word: Nice
+Synonyms: Good, Pleasant
+Antonyms: Bad, Cruel
+Word: Sly
+Synonyms: Canny, Shrewd, Subtle, Smart
+Antonyms: Honest, Open, Simple

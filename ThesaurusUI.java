@@ -5,25 +5,26 @@
 
 import java.io.IOException;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DictionaryUI {
-    private DictionaryEditor editor;
+public class ThesaurusUI {
+    private ThesaurusEditor editor;
 	private Scanner scanner;
 	private boolean finished;
     private String filename;
-    private List<DictionaryWord> words;
+    private List<ThesaurusWord> words;
 
-    public DictionaryUI(String filename) throws IOException, ClassNotFoundException {
+    public ThesaurusUI(String filename) throws IOException, ClassNotFoundException {
         this.filename = filename;
-        words = DictionaryFileManager.readFromFile(filename);
-        editor = new DictionaryEditor(words);
+        words = ThesaurusFileManager.readFromFile(filename);
+        editor = new ThesaurusEditor(words);
 		scanner = new Scanner(System.in);
         finished = false;
     }
 
     public static void main(String[] args) throws Exception {
-    	DictionaryUI ui = new DictionaryUI("dictionary.txt");
+    	ThesaurusUI ui = new ThesaurusUI("thesaurus.txt");
     	ui.start();
 	}
 
@@ -47,7 +48,7 @@ public class DictionaryUI {
 
     private void printMainMenu() {
 		System.out.println();
-		System.out.println("DICTIONARY");
+		System.out.println("THESAURUS");
 		System.out.println("Select one of the following options:");
 		System.out.println("1) Look up a word");
 		System.out.println("2) Add word");
@@ -98,7 +99,7 @@ public class DictionaryUI {
 	private void lookup() {
     	System.out.print("Enter word: ");
     	String input = getUserInput();
-    	DictionaryWord word = editor.find(input);
+    	ThesaurusWord word = editor.find(input);
     	if (word != null) {
 			System.out.println(word);
 		} else {
@@ -111,18 +112,33 @@ public class DictionaryUI {
 	private void addWord() {
         System.out.print("Enter the word you'd like to add: ");
     	String input = getUserInput();
-    	DictionaryWord word = editor.find(input);
+    	ThesaurusWord word = editor.find(input);
     	if (word == null) {
-			System.out.print("Enter a definition for the word: ");
-            String definition = getUserInput();
+            List<String> synonyms = new ArrayList<String>();
+            List<String> antonyms = new ArrayList<String>();
 
-            System.out.print("Enter a usage example for the word: ");
-            String usageExample = getUserInput();
+            while (true) {
+                System.out.print("Enter synonyms for the word (one per line), enter \"x\" to continue: ");
+                String synonym = getUserInput();
+                if (synonym.equals("x")) {
+                    break;
+                }
+                synonyms.add(synonym);
+            }
 
-            editor.setWord(input, definition, usageExample);
+            while (true) {
+                System.out.print("Enter antonyms for the word (one per line), enter \"x\" to continue: ");
+                String antonym = getUserInput();
+                if (antonym.equals("x")) {
+                    break;
+                }
+                antonyms.add(antonym);
+            }
+
+            editor.setWord(input, synonyms, antonyms);
 		}
         else {
-    		System.out.println("That word is already in the dictionary.");
+    		System.out.println("That word is already in the thesaurus.");
 		}
 
 	}
@@ -136,27 +152,45 @@ public class DictionaryUI {
 	private void editWord() {
         System.out.print("Enter the word you'd like to edit: ");
         String input = getUserInput();
-        DictionaryWord word = editor.find(input);
+        ThesaurusWord word = editor.find(input);
         if (word == null) {
-            System.out.println("Word not found - unable to edit words not already present in the dictionary.");
+            System.out.println("Word not found - unable to edit words not already present in the thesaurus.");
         }
         else {
-            System.out.print("Would you like to edit the definition of \"" + input + "\"? (y/n): ");
+            System.out.print("Would you like to edit the synonyms of \"" + input + "\"? (y/n): ");
             String answer = getUserInput();
 
             if (answer.equals("y")) {
-                System.out.print("Enter a new definition for the word: ");
-                String definition = getUserInput();
-                editor.setDefinition(input, definition);
+                List<String> synonyms = new ArrayList<String>();
+
+                while (true) {
+                    System.out.print("Enter synonyms for the word (one per line), enter \"x\" to continue: ");
+                    String synonym = getUserInput();
+                    if (synonym.equals("x")) {
+                        break;
+                    }
+                    synonyms.add(synonym);
+                }
+
+                editor.setSynonyms(input, synonyms);
             }
 
-            System.out.print("Would you like to edit the usage example of \"" + input + "\"? (y/n): ");
+            System.out.print("Would you like to edit the antonyms of \"" + input + "\"? (y/n): ");
             answer = getUserInput();
 
             if (answer.equals("y")) {
-                System.out.print("Enter a new usage example for the word: ");
-                String usageExample = getUserInput();
-                editor.setUsageExample(input, usageExample);
+                List<String> antonyms = new ArrayList<String>();
+
+                while (true) {
+                    System.out.print("Enter antonyms for the word (one per line), enter \"x\" to continue: ");
+                    String antonym = getUserInput();
+                    if (antonym.equals("x")) {
+                        break;
+                    }
+                    antonyms.add(antonym);
+                }
+
+                editor.setAntonyms(input, antonyms);
             }
         }
 	}
@@ -166,9 +200,9 @@ public class DictionaryUI {
 	private void removeWord() {
 		System.out.print("Enter the word you'd like to remove: ");
         String input = getUserInput();
-        DictionaryWord word = editor.find(input);
+        ThesaurusWord word = editor.find(input);
         if (word == null) {
-            System.out.println("Word not found - unable to remove words not already present in the dictionary.");
+            System.out.println("Word not found - unable to remove words not already present in the thesaurus.");
         }
         else {
             editor.delete(word);
@@ -180,25 +214,25 @@ public class DictionaryUI {
 	//if yes save the current list to the text file, if no do not save (text file unchanged)
 	//print a goodbye message, close the Scanner, quit the loop
 	private void quit() {
-       System.out.print("Would you like to save this dictionary before exiting? (y/n): ");
+       System.out.print("Would you like to save this thesaurus before exiting? (y/n): ");
        String input = getUserInput();
 
        if (input.equals("y")) {
            this.save();
            scanner.close();
            this.finished = true;
-           System.out.println("Successfully saved and exited Dictionary.");
+           System.out.println("Successfully saved and exited Thesaurus.");
        }
        else if (input.equals("n")) {
            scanner.close();
            this.finished = true;
-           System.out.println("Successfully exited Dictionary.");
+           System.out.println("Successfully exited Thesaurus.");
        }
 
     }
 
     private void save() {
-        DictionaryFileManager.writeToFile(filename, words);
+        ThesaurusFileManager.writeToFile(filename, words);
     }
 
 	private String getUserInput() {
@@ -222,3 +256,4 @@ public class DictionaryUI {
 		}
 	}
 }
+
