@@ -158,6 +158,8 @@ public class DictionaryUI {
                 String usageExample = getUserInput();
                 editor.setUsageExample(input, usageExample);
             }
+
+            System.out.println(word.toString());
         }
 	}
 	//ask the user for a word
@@ -172,6 +174,7 @@ public class DictionaryUI {
         }
         else {
             editor.delete(word);
+            System.out.println("\"" + input + "\" has been deleted.");
         }
 
 	}

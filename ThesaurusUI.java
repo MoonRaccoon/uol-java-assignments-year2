@@ -86,16 +86,12 @@ public class ThesaurusUI {
 		}
 	}
 
-	//print every word in the dictionary on its own line, showing the user the word field only
 	private void showAll() {
     	for (int i = 0; i < words.size(); i++) {
     		System.out.println(words.get(i).getWord());
 		}
 	}
 
-	//ask the user for a word
-	//if the word is in the dictionary display the word with its fields
-	//if the word is not in the dictionary tell the user the word is not found
 	private void lookup() {
     	System.out.print("Enter word: ");
     	String input = getUserInput();
@@ -107,8 +103,6 @@ public class ThesaurusUI {
 		}
 	}
 
-	//Ask the user for a word. Check the list to see if the word is already in the list. If not ask the user for a definition and a ussage example.
-	//If the word is in the list tell the user their word is already in the dictionary and end the method.
 	private void addWord() {
         System.out.print("Enter the word you'd like to add: ");
     	String input = getUserInput();
@@ -143,12 +137,6 @@ public class ThesaurusUI {
 
 	}
 
-	//Ask the user for a word. Check the list to see if the word is already in the list.
-	//If the word NOT in the list tell the user cannot edit a word that isn't in the dictionary
-	//If the word is in the list ask the user if they want to edit the definition (y/n)
-	//if yes ask for new definition and save it in the definition field of the word (replace what is already there)
-	//ask user if they want to edit the usage example, if yes ask for new usage example and save it in the usageExample field of the word
-	//Show the user the fields of the edited word before ending the method
 	private void editWord() {
         System.out.print("Enter the word you'd like to edit: ");
         String input = getUserInput();
@@ -192,11 +180,10 @@ public class ThesaurusUI {
 
                 editor.setAntonyms(input, antonyms);
             }
+
+            System.out.println(word.toString());
         }
 	}
-	//ask the user for a word
-	//if the word is not in the list tell the user cannot remove a word that isn't in the dictionary
-	//If the word is in the list delete the word from the list and tell the user it has been deleted
 	private void removeWord() {
 		System.out.print("Enter the word you'd like to remove: ");
         String input = getUserInput();
@@ -206,6 +193,7 @@ public class ThesaurusUI {
         }
         else {
             editor.delete(word);
+            System.out.println("\"" + input + "\" has been deleted.");
         }
 
 	}

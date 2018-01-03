@@ -47,7 +47,7 @@ public class ThesaurusEditor extends Thesaurus {
         if (thesaurusWord != null) { //update existing word
             thesaurusWord.setSynonyms(synonyms);
             thesaurusWord.setAntonyms(antonyms);
-        } else { //word isn't already in the dictionary
+        } else { //word isn't already in the thesaurus
             add(new ThesaurusWord(word, synonyms, antonyms));
         }
     }
